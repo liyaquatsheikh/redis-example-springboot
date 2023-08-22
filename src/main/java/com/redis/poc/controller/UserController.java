@@ -5,10 +5,7 @@ import com.redis.poc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,4 +38,31 @@ public class UserController {
         return ResponseEntity.ok(userList);
 
     }
+
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> fetchUserById(@PathVariable("id") Long id) {
+        User user;
+        user = userService.fetchUserById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
+        boolean result = userService.deleteUser(id);
+        if(result)
+            return ResponseEntity.ok("User deleted Successfully!!");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @PutMapping("/user/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @RequestBody User user) {
+        boolean result = userService.updateUser(id,user);
+        if(result)
+            return ResponseEntity.ok("User Updated Successfully!!");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+
 }

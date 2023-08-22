@@ -26,4 +26,23 @@ public class UserServiceImpl implements  UserService{
     public List<User> getAllUser() {
         return userDao.fetchAllUser();
     }
+
+
+    @Override
+    public User fetchUserById(Long id) {
+        return userDao.fetchUserById(id);
+    }
+
+    @Override
+    public boolean deleteUser(Long id) {
+        return userDao.deleteUser(id);
+    }
+
+    @Override
+    public boolean updateUser(Long id, User user) {
+        return userDao.updateUser(id,user);
+    }
+
+
+
 }
